@@ -1,4 +1,9 @@
-
+/**
+ * Redux Toolkit
+ * documentation source: https://redux-toolkit.js.org/introduction/getting-started
+ * Redux Persist
+ * documentation source: https://github.com/rt2zz/redux-persist#readme
+ */
 import { combineReducers,configureStore } from '@reduxjs/toolkit';
 import { persistReducer,persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';

@@ -1,3 +1,8 @@
+/**
+ * Pattern implemented: rtk query
+ * source: https://redux-toolkit.js.org/rtk-query/overview
+*/
+
 import {
     BaseQueryFn,
     FetchArgs,
