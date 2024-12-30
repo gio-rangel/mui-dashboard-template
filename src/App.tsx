@@ -1,25 +1,29 @@
 import './App.css'
-// import { Container } from '@mui/material'
-// import Sidebar from './layout/Sidebar'
-import Dashboard from './layout/Dashboard'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { IRoute, routes } from './routes/AppRoutes';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
 
   return (
-    // <Container 
-    //   maxWidth={false} // Disable max-width constraint
-    //   disableGutters // Remove default padding
-    //   sx={{
-    //     height: '100vh', // Full viewport height
-    //     width: '100vw',  // Full viewport width
-    //     display: 'flex', // Flexbox for responsiveness
-    //     padding: '1rem', // Optional padding
-    //     boxSizing: 'border-box', // Include padding in width/height
-    //   }}
-    // >
-    //   <Sidebar />
-    // </Container>
-    <Dashboard />
+    // <Dashboard />
+    <BrowserRouter>
+      <Routes>
+        {routes.map((route: IRoute) => {
+          return (
+            <Route 
+              key={route.path}
+              path={route.path}
+              element={
+                <ProtectedRoute isProtected={route.protected}>
+                  <route.component />
+                </ProtectedRoute>
+              }
+            />
+          )
+        })}
+      </Routes>
+    </BrowserRouter>
   )
 }
 

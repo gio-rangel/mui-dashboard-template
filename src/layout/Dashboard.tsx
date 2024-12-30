@@ -8,8 +8,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import AppNavbar from './theme/components/AppNavbar';
-import Header from './theme/components/Header';
-import MainGrid from './theme/components/MainGrid';
 import SideMenu from './theme/components/SideMenu';
 import AppTheme from './theme/AppTheme';
 import {
@@ -18,6 +16,8 @@ import {
   datePickersCustomizations,
   treeViewCustomizations,
 } from './theme/customizations';
+import { IRoute, IRouteChildren, routes } from '../routes/AppRoutes';
+import { Routes, Route } from 'react-router-dom';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -38,9 +38,6 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
           component="main"
           sx={(theme) => ({
             flexGrow: 1,
-            // backgroundColor: theme.vars
-            //   ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
-            //   : alpha(theme.palette.background.default, 1),
             backgroundColor: alpha(theme.palette.background.default, 1),
             overflow: 'auto',
           })}
@@ -54,8 +51,18 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
-            <MainGrid />
+            <Routes>
+              {routes
+                  .find((route: IRoute) => route.path === '/dashboard') // Find dashboard route
+                  ?.children?.() // Call the function to get children routes
+                  .map((child: IRouteChildren) => (
+                      <Route
+                          key={child.path}
+                          path={child.path}
+                          element={<child.component />}
+                      />
+                  ))}
+            </Routes>
           </Stack>
         </Box>
       </Box>
